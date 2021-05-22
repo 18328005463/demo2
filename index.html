@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="referrer" content="no-referrer">
+  <title>Document</title>
+  <link rel="stylesheet" href="../tools/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+  <div>我是原始内容</div>
+  <div class="jumbotron">
+    <h1>我是一个首页
+      <a href="./res.html" class="btn btn-danger btn-lg" role="button">注册</a>
+      <a name="login" href="JavaScript:;" class="btn btn-danger btn-lg" role="button">登录</a>
+      <button name="logout" class="btn btn-danger btn-lg" role="button">退出登录</button>
+      <button name="cart" class="btn btn-danger btn-lg" role="button">购物车</button>
+    </h1>
+    <p>应该根据后台数据,生成页面,有瀑布流,有轮播图,我就懒得写了</p>
+    <p><a class="btn btn-primary btn-lg" href="./list.html?cat_one_id=食品酒水" role="button">食品酒水</a></p>
+    <p><a class="btn btn-primary btn-lg" href="./list.html?cat_one_id=童装玩具" role="button">童装玩具</a></p>
+    <p><a class="btn btn-primary btn-lg" href="./list.html?cat_one_id=家装建材" role="button">家装建材</a></p>
+    <p><a class="btn btn-primary btn-lg" href="./list.html?cat_one_id=奶粉尿裤" role="button">奶粉尿裤</a></p>
+    <p><a class="btn btn-primary btn-lg" href="./list.html?cat_one_id=其他" role="button">其他产品</a></p>
+  </div>
+  
+  <script src="../../../jquery.min.js"></script>
+  <script src="../../../cookie.js"></script>
+  <script>
+    // 退出登录
+    $('[name="logout"]').click(function(){
+      // 验证是否已经登录,也就是 cookie,login是否存在
+      const cookie = myGetCookie();
+      if( !cookie.login ){
+        // 弹出提示信息 终止之后的程序执行
+        window.alert('您还没有登录,请您先登录');
+        return;
+      }
+
+      // cookie 的键名和路径必须和要删除的cookie的键名路径相同
+      mySetCookie('login' , 1 , -1 , '/');
+      // 提示信息
+      window.alert('您已经成功退出登录');
+    })
+
+    // 跳转购物车
+    $('[name="cart"]').click(function(){
+      // 简单的小验证
+      // 验证是否已经登录,也就是 cookie,login是否存在
+      const cookie = myGetCookie();
+      if( !cookie.login ){
+        // 弹出提示信息 点击确定跳转 登录页面
+        if( window.confirm('您还没有登录,点击确定跳转登录页面') ){
+          // 如果点击确定,返回值是 true
+          window.location.href = './login.html';
+        }
+
+      }else{
+        // 如果已经登录有登录信息,跳转购物车页面
+        window.location.href = './cart.html';
+      }
+    })
+
+    // 跳转登录页面
+    $('[name="login"]').click( function(){
+      window.location.href = `./login.html?url=${window.location.href}`;
+    })
+  </script>
+
+
+  <script>
+    /*
+      所谓的退出登录
+        就是设定 cookie 的时效为负数
+        cookie 的键名 和 路径不能改变
+    
+      所谓的跳转购物车
+        如果已经登录,可以跳转购物车
+        如果没有登录,不能跳转购物车
+
+      跳转详情页
+        每个详情页按钮 跳转结果 都是相同的
+        需要携带 不同的参数数据
+        实际项目中,这些 产品的分类信息 应该是 创建好的数据库信息
+        我们现在只能自己写 固定的参数数据 模拟一下
+        点击 商品分类 跳转至 详情页 携带 一级分类 参数数据
+    */
+
+  </script>
+</body>
+</html>
